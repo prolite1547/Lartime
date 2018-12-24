@@ -26,7 +26,6 @@
                     user: this.user,
                     message: this.newMessage
                 });
-
                 this.newMessage = ''
             }
         }    

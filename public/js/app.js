@@ -57784,16 +57784,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['messages']
+    props: ['messages', 'user'],
+    methods: {
+        myMsg: function myMsg(user_id) {
+            if (user_id == this.user.id) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 });
 
 /***/ }),
@@ -57805,28 +57807,23 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "ul",
+    "div",
     { staticClass: "chat" },
     _vm._l(_vm.messages, function(message) {
-      return _c("li", { key: message.id, staticClass: "left clearfix" }, [
-        _c("div", { staticClass: "chat-body clearfix" }, [
-          _c("div", { staticClass: "header" }, [
-            _c("strong", { staticClass: "primary-font" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(message.user.name) +
-                  "\n                "
-              )
-            ])
-          ]),
+      return _c(
+        "span",
+        {
+          key: message.id,
+          class: [_vm.myMsg(message.user.id) ? "me" : "you", "bubble"]
+        },
+        [
+          _c("b", [_vm._v(_vm._s(message.user.name))]),
           _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n                " + _vm._s(message.message) + "\n            "
-            )
-          ])
-        ])
-      ])
+          _c("br"),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(message.message) + " ")])
+        ]
+      )
     }),
     0
   )
@@ -57923,7 +57920,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 user: this.user,
                 message: this.newMessage
             });
-
             this.newMessage = '';
         }
     }

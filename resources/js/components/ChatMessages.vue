@@ -1,22 +1,24 @@
 <template>
-    <ul class="chat">
-        <li class="left clearfix" v-for="message in messages"  v-bind:key="message.id">
-            <div class="chat-body clearfix">
-                <div class="header">
-                    <strong class="primary-font">
-                        {{ message.user.name }}
-                    </strong>
-                </div>
-                <p>
-                    {{ message.message }}
-                </p>
-            </div>
-        </li>
-    </ul>
+    <div class="chat">
+        <span  v-bind:class="[myMsg(message.user.id) ? 'me' : 'you' , 'bubble']" v-for="message in messages"  v-bind:key="message.id">
+            <b>{{ message.user.name }}</b>
+            <br>
+            <p>{{ message.message }} </p>
+        </span>
+    </div>
 </template>
 
 <script>
   export default {
-    props: ['messages']
+    props: ['messages', 'user'],
+    methods:{
+        myMsg(user_id){
+            if(user_id == this.user.id){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
   };
 </script>
